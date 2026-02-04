@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正在進入問卷...</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container { text-align: center; padding: 20px; }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        a { color: #3498db; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="loader"></div>
+        <h2>問卷分配中，請稍候...</h2>
+        <p>如果頁面沒有自動跳轉，請 <a id="direct-link" href="#">點擊此處</a></p>
+    </div>
+
+    <script>
+        // 你的三份問卷清單
+        var surveys = [
+            "https://forms.gle/CAcLenUUvgByfrXE9",
+            "https://forms.gle/nEgWs7WxhGuvGymq8",
+            "https://forms.gle/zzwquWcekXKjjxYt7"
+        ];
+
+        // 隨機選取一個索引 (0, 1, 2)
+        var randomIndex = Math.floor(Math.random() * surveys.length);
+        var selectedSurvey = surveys[randomIndex];
+
+        // 更新手動點擊的連結
+        document.getElementById('direct-link').href = selectedSurvey;
+
+        // 執行跳轉
+        // 使用 replace 可以讓使用者按「上一頁」時不會卡在跳轉頁
+        window.location.replace(selectedSurvey);
+    </script>
+</body>
+</html>
