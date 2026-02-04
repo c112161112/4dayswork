@@ -23,10 +23,11 @@
     </div>
 
     <script>
+        // 依照妳要求的新順序排列
         var surveys = [
-            "https://forms.gle/CAcLenUUvgByfrXE9",
-            "https://forms.gle/nEgWs7WxhGuvGymq8",
-            "https://forms.gle/zzwquWcekXKjjxYt7"
+            "https://forms.gle/zzwquWcekXKjjxYt7", // 對應 Survey_1
+            "https://forms.gle/CAcLenUUvgByfrXE9", // 對應 Survey_2
+            "https://forms.gle/nEgWs7WxhGuvGymq8"  // 對應 Survey_3
         ];
 
         var randomIndex = Math.floor(Math.random() * surveys.length);
@@ -35,17 +36,16 @@
 
         document.getElementById('direct-link').href = selectedSurvey;
 
-        // 強制發送事件
+        // 發送追蹤事件
         gtag('event', 'select_content', {
             'content_type': 'survey_redirect',
             'item_id': surveyLabel,
             'event_callback': function() {
-                // 當 Google 確認收到數據後，才執行跳轉
                 window.location.replace(selectedSurvey);
             }
         });
 
-        // 如果 Google 3秒內沒回應，還是要跳轉（保險機制）
+        // 保險跳轉機制
         setTimeout(function(){
             window.location.replace(selectedSurvey);
         }, 3000);
