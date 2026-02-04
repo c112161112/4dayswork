@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QXSB7M1EY2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXSB7M1EY2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QXSB7M1EY2');
+    </script>
 
-  gtag('config', 'G-QXSB7M1EY2');
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>正在進入問卷...</title>
@@ -30,8 +29,6 @@
     </style>
 </head>
 <body>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2KDPS4H"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="container">
         <div class="loader"></div>
         <h2>問卷分配中，請稍候...</h2>
@@ -39,24 +36,33 @@
     </div>
 
     <script>
-        // 你的三份問卷清單
         var surveys = [
             "https://forms.gle/CAcLenUUvgByfrXE9",
             "https://forms.gle/nEgWs7WxhGuvGymq8",
             "https://forms.gle/zzwquWcekXKjjxYt7"
         ];
 
-        // 隨機選取
         var randomIndex = Math.floor(Math.random() * surveys.length);
         var selectedSurvey = surveys[randomIndex];
 
         // 更新備用連結
         document.getElementById('direct-link').href = selectedSurvey;
 
-        // 延遲 0.8 秒跳轉，確保 GTM 追蹤碼有時間運作
+        // --- 核心追蹤代碼：發送事件給 GA4 ---
+        // 定義問卷名稱（Survey_1, Survey_2, Survey_3）
+        var surveyLabel = "Survey_" + (randomIndex + 1);
+
+        gtag('event', 'select_content', {
+            'content_type': 'survey_redirect',
+            'item_id': surveyLabel,
+            'destination_url': selectedSurvey
+        });
+        // ---------------------------------
+
+        // 延遲 1 秒跳轉，確保追蹤數據有時間傳送到 Google
         setTimeout(function(){
             window.location.replace(selectedSurvey);
-        }, 800);
+        }, 1000);
     </script>
 </body>
 </html>
